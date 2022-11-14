@@ -1,0 +1,9 @@
+name: mingyang
+channels:
+  - defaults
+dependencies:
+  - transformers
+  - uvicorn
+  - fastapi
+  - sentencepiece
+prefix: /Users/mingyanghe/opt/anaconda3/envs/mingyang
