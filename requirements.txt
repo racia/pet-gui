@@ -1,4 +1,4 @@
-  - transformers
-  - uvicorn
-  - fastapi
-  - sentencepiece
+transformers
+uvicorn
+fastapi
+sentencepiece
