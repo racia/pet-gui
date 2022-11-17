@@ -1,32 +1,42 @@
-from fastapi import FastAPI, File, UploadFile,Request,status
-from transformers import T5Tokenizer, T5ForConditionalGeneration
-from io import StringIO
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, File, UploadFile, Request, BackgroundTasks
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import FileResponse
-import logging
 import tarfile
-from fastapi.responses import RedirectResponse
+#import Pet.script as script
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="/fastapi/templates")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="/fastapi/static"), name="static")
+
 
 @app.get("/")
 async def read_root():
   return {"Hello":"World"}
 
-@app.get("/basic", response_class=HTMLResponse,name='homepage')
+
+@app.get("/basic", response_class=HTMLResponse, name='homepage')
 async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/racia", response_class=HTMLResponse,name = "racia")
+
+@app.get("/progress", response_class=HTMLResponse, name="progress")
 async def read_item(request: Request):
     num = 100
     return templates.TemplateResponse("progress.html", {"request": request, "num": num})
+
+
+# def train():
+#     script.main()
+#
+#
+# @app.get("/train")
+# async def kickoff(background_tasks: BackgroundTasks):
+#     background_tasks.add_task(train)
+#     return {"message": "Training started"}
+
 
 @app.post("/basic")
 async def get_form(request: Request,file: UploadFile = File(...)):

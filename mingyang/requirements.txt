@@ -1,6 +1,0 @@
-  - transformers
-  - uvicorn
-  - fastapi
-  - sentencepiece
-  - uvicorn
-
