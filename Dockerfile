@@ -29,5 +29,8 @@ RUN python -m pip install --upgrade pip && \
     pip install --no-cache-dir --upgrade -r /fastapi/requirements.txt && \
     pip install .
 
+ENV VIRTUAL_ENV=/home/rsari/MIEdeep/
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Run by specifying the host and port
 CMD ["uvicorn", "app.pet-gui:app", "--host", "0.0.0.0", "--port", "8080"]
