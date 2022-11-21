@@ -1,7 +1,7 @@
 FROM python:3.10
 
 # Create the directory for the container
-WORKDIR /fastapi
+WORKDIR /fastapi/
 
 # Get all requirements for FastApi and Pet
 COPY requirements.txt /fastapi/requirements.txt
@@ -21,16 +21,15 @@ COPY /setup.py /fastapi/setup.py
 #
 COPY /templates /fastapi/templates
 
-#
-COPY /Dockerfile /fastapi/Dockerfile
+COPY /venv /fastapi/venv
+
+ENV PATH=:/venv/bin:$PATH
 
 #
 RUN python -m pip install --upgrade pip && \
-    pip install --no-cache-dir --upgrade -r /fastapi/requirements.txt && \
+    pip install -Ur /fastapi/requirements.txt && \
     pip install .
 
-ENV VIRTUAL_ENV=/home/rsari/MIEdeep/
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Run by specifying the host and port
 CMD ["uvicorn", "app.pet-gui:app", "--host", "0.0.0.0", "--port", "8080"]

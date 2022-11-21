@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import tarfile
-#import Pet.script as script
+from Pet import script
 
 app = FastAPI()
 
@@ -14,7 +14,7 @@ app.mount("/static", StaticFiles(directory="/fastapi/static"), name="static")
 
 @app.get("/")
 async def read_root():
-  return {"Hello":"World"}
+  return {"Hello": "World"}
 
 
 @app.get("/basic", response_class=HTMLResponse, name='homepage')
@@ -28,21 +28,28 @@ async def read_item(request: Request):
     return templates.TemplateResponse("progress.html", {"request": request, "num": num})
 
 
-# def train():
-#     script.main()
-#
-#
-# @app.get("/train")
-# async def kickoff(background_tasks: BackgroundTasks):
-#     background_tasks.add_task(train)
-#     return {"message": "Training started"}
+def train():
+    """
+    Starts training with (yet) hardcoded params and data_uploaded in Pet directory.
+    """
+    instance = script.Script("pet", [0, 1, 2, 3], "Pet/data_uploaded/yelp_review_polarity_csv/", "bert", "bert-base-cased",
+                      "yelp-polarity", "./output")
+    instance.run()
+
+@app.get("/train", name="train")
+async def kickoff(background_tasks: BackgroundTasks):
+    """
+    Kicks off training by calling train method as background task.
+    """
+    background_tasks.add_task(train)
+    return {"message": "Training started"}
 
 
 @app.post("/basic")
-async def get_form(request: Request,file: UploadFile = File(...)):
+async def get_form(request: Request, file: UploadFile = File(...)):
     file_upload = tarfile.open(fileobj=file.file, mode="r:gz")
-    file_upload.extractall('./data_uploaded')
-    redirect_url = request.url_for('racia')
+    file_upload.extractall('./Pet/data_uploaded') # upload directly into Pet folder
+    redirect_url = request.url_for('train')
     return RedirectResponse(redirect_url, status_code=303)
 
 
