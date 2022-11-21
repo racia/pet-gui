@@ -225,6 +225,9 @@ button {
   background: none;
   border: none;
 }
+.mycontain{
+  text-align: center;
+}
 
 /* ==========================================================================
    #PAGE WRAPPER
@@ -503,6 +506,22 @@ input {
   box-shadow: none;
   width: 100%;
   font-size: 14px;
+  font-family: inherit;
+}
+input[type = 'button']{
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 50px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #fff;
+  width: 35%;
   font-family: inherit;
 }
 

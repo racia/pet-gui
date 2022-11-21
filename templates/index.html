@@ -54,13 +54,13 @@ fileUploader.addEventListener('change', (event) => {
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="Samples:">
+                                            <input class="input--style-5" type="text" name="sample">
                                             <label class="label--desc">Samples:</label>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="Labels:">
+                                            <input class="input--style-5" type="text" name="label">
                                             <label class="label--desc">Labels:</label>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@ fileUploader.addEventListener('change', (event) => {
                             <div class="name">Define templates:</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="text" name="Define templates:">
+                                    <input class="input--style-5" type="text" name="templates">
                                 </div>
                             </div>
                         </div>
@@ -81,13 +81,13 @@ fileUploader.addEventListener('change', (event) => {
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="Samples:">
+                                            <input class="input--style-5" type="text" name="one">
                                             <label class="label--desc">"1"</label>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="Labels:">
+                                            <input class="input--style-5" type="text" name="two">
                                             <label class="label--desc">"2"</label>
                                         </div>
                                     </div>
@@ -98,11 +98,11 @@ fileUploader.addEventListener('change', (event) => {
                             <label class="label label--block">Define your language model:</label>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">gbert-base
-                                    <input type="radio" checked="checked" name="exist">
+                                    <input type="radio" checked="checked" name="model_para" value="gbert-base">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">gbert-base-clinical
-                                    <input type="radio" name="exist">
+                                    <input type="radio" name="model_para" value="gbert-base-clinicalL">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>

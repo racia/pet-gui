@@ -21,10 +21,6 @@ COPY /setup.py /fastapi/setup.py
 #
 COPY /templates /fastapi/templates
 
-COPY /venv /fastapi/venv
-
-ENV PATH=:/venv/bin:$PATH
-
 #
 RUN python -m pip install --upgrade pip && \
     pip install -Ur /fastapi/requirements.txt && \
