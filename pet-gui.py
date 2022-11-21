@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile,Request,status
+from fastapi import FastAPI, File, Form, UploadFile,Request,status
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from io import StringIO
 from fastapi.responses import HTMLResponse
@@ -7,6 +7,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
 import logging
 import tarfile
+import json
 from fastapi.responses import RedirectResponse
 
 app = FastAPI()
@@ -26,12 +27,21 @@ async def get_form(request: Request):
 @app.get("/racia", response_class=HTMLResponse,name = "racia")
 async def read_item(request: Request):
     num = 100
-    return templates.TemplateResponse("progress.html", {"request": request, "num": num})
+    return templates.TemplateResponse("next.html", {"request": request, "num": num})
 
 @app.post("/basic")
-async def get_form(request: Request,file: UploadFile = File(...)):
+async def get_form(request: Request,sample: str = Form(...), label: str = Form(...),templates: str = Form(...),one: str = Form(...), two: str = Form(...),model_para: str = Form(...),file: UploadFile = File(...)):
     file_upload = tarfile.open(fileobj=file.file, mode="r:gz")
     file_upload.extractall('./data_uploaded')
+    print(f'sample:{sample}')
+    print(f'label:{label}')
+    print(f'sample:{templates}')
+    print(f'1:{one}')
+    print(f'2:{two}')
+    print(f'model_para:{model_para}')
+    para_dic = {"sample":sample,"label":label,"templates":templates,"one":one,"two":two,"model_para":model_para}
+    with open('data.json', 'w') as f:
+        json.dump(para_dic, f)
     redirect_url = request.url_for('racia')
     return RedirectResponse(redirect_url, status_code=303)
 
